@@ -43,7 +43,7 @@ var server = http.createServer((req, res) => {
     'Content-Type': 'text/html'
   });
 
-  var fileStream = fs.createReadStream(__dirname + '/index.html');
+  var fileStream = fs.createReadStream(__dirname + '/public/index.html');
   fileStream.pipe(res);
 });
 
