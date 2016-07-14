@@ -5,11 +5,28 @@
     </title>
   </head>
   <body>
-    Hello
+    <img src="/donald.jpg" class="balloon"/>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .balloon {
+        transition: all .3s ease-in-out;
+      }
+    </style>
   </body>
   <script>
     'use strict';
 
     const socket = new WebSocket('ws://192.168.1.101:4081');
+    socket.onmessage = function(message) {
+      var level = Number(message.data) * 10;
+      if(level > 1.7) level = 1.7;
+
+      document.querySelector('.balloon').style.transform = `scale(${level})`;
+
+    }
   </script>
 </html>

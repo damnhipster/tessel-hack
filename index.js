@@ -1,5 +1,7 @@
 // Import the interface to Tessel hardware
-var tessel = require('tessel');
+var tessel = require('tessel')
+  , ambientlib = require('ambient-attx4')
+  , ambient = ambientlib.use(tessel.port['A']);
 
 var url = require('url')
   , WebSocketServer = require('ws').Server
@@ -10,31 +12,30 @@ var url = require('url')
   , wss = new WebSocketServer({ port: port + 1 });
 
 wss.on('connection', function connection(ws) {
-  var location = url.parse(ws.upgradeReq.url, true);
 
+  setInterval(function() {
 
-  // ws.on('message', function incoming(message) {
-  //   console.log('received: %s', message);
-  // });
-  //
-  // ws.send('something');
-
-  // Turn one of the LEDs on to start.
-  tessel.led[2].on();
-
-  // Blink!
-  setInterval(function () {
-    tessel.led[2].toggle();
-    tessel.led[3].toggle();
+    ambient.getSoundLevel(function(err, soundData) {
+      if(err) throw err;
+      ws.send(soundData.toString());
+    })
   }, 100);
 
-  console.log("I'm blinking! (Press CTRL + C to stop)");
 });
 
 var server = http.createServer((req, res) => {
   if (req.url === '/favicon.ico') {
     res.writeHead(404);
     res.end('No favicon');
+    return;
+  }
+
+  if(req.url === "/donald.jpg") {
+    res.writeHead(200, {
+      'Content-Type': 'image/jpeg'
+    });
+    var fileStream = fs.createReadStream(__dirname + '/public/donald.jpg');
+    fileStream.pipe(res);
     return;
   }
 
