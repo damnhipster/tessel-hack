@@ -1,19 +1,23 @@
 {
   "name": "tessel-hack",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Tessel project",
   "main": "index.js",
   "scripts": {
+    "start": "t2 run index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/damnhipster/tessel-hack.git"
+  "repository": "git://github.com/damnhipster/tessel-hack.git",
+  "keywords": [
+    "Tessel"
+  ],
+  "license": "MIT",
+  "readme": "A bare bones Tessel 2 blinky script.",
+  "dependencies": {
+    "express": "^4.14.0",
+    "ws": "^1.1.1"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/damnhipster/tessel-hack/issues"
-  },
-  "homepage": "https://github.com/damnhipster/tessel-hack#readme"
+  "devDependencies": {
+    "watch": "^0.19.1"
+  }
 }
